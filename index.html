@@ -10,6 +10,10 @@
   <script type="module">
     import { computeGameState } from './bundle.js';
 
+    const TARGET_TIME_ON_SCREEN = 2000; // milliseconds
+    const INCOMING_ZONE = 0.80; // in percents
+    const height = 600; // pixels
+
     function preload() {
       this.load.setBaseURL('.');
       this.load.image('sky', 'assets/space3.png');
@@ -34,6 +38,11 @@
       this.logo = this.physics.add.image(400, 100, 'logo');
       emitter.startFollow(this.logo);
 
+      const up = this.physics.add.sprite(200, -200, 'up');
+      up.setDisplaySize(40, 40);
+      up.setTint('0xffffff'); // white
+      this.targets = [ up ];
+
       const style = { font: '20px Arial', fill: '#fff' };
       this.t0 = new Date().getTime();
       this.timeText = this.add.text(20, 20, 'time: ', style);
@@ -44,15 +53,23 @@
     function update() {
       const time = new Date().getTime() - this.t0
       this.timeText.setText('time: ' + time);
+
       const pressedKeys = {
         right: this.arrow.right.isDown,
         left: this.arrow.left.isDown,
         up: this.arrow.up.isDown,
         down: this.arrow.down.isDown,
       }
-      const { incrX, incrY } = computeGameState(pressedKeys)
+      const { incrX, incrY, targets } = computeGameState(pressedKeys)
       this.logo.x += incrX
       this.logo.y += incrY
+      
+      const yPosition = (time - targets[0].timestamp) / TARGET_TIME_ON_SCREEN;
+      this.targets[0].y = height * yPosition;
+      if (yPosition > INCOMING_ZONE) {
+        this.targets[0].setTint('0xff0000'); // red
+      }
+
     }
 
     // refs:
@@ -63,7 +80,7 @@
     const game = new Phaser.Game({
       type: Phaser.AUTO,
       width: 800,
-      height: 600,
+      height,
       physics: {
         default: 'arcade',
       },
