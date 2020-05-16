@@ -5,8 +5,15 @@ export interface PressedKeys {
   right: boolean;
 }
 
+type Key = 'up' | 'down' | 'left' | 'right';
+
+type Timestamp = number;
+
 interface Target {
   id: number;
+  key: Key;
+  timestamp: Timestamp;
+  hit: boolean;
 }
 
 interface GameState {
@@ -19,7 +26,7 @@ export function computeGameState(pressedKeys: PressedKeys): GameState {
   const gameState: GameState = {
     incrX: 0,
     incrY: 0,
-    targets: [{ id: 0 }],
+    targets: [{ id: 0, key: 'up', timestamp: 1000, hit: false }],
   };
   if (pressedKeys.right) {
     gameState.incrX += 3;
