@@ -5,7 +5,7 @@ export interface PressedKeys {
   right: boolean;
 }
 
-type Key = 'up' | 'down' | 'left' | 'right';
+type Key = "up" | "down" | "left" | "right";
 
 type Timestamp = number;
 
@@ -23,7 +23,7 @@ interface GameState {
 }
 
 export function computeGameState(pressedKeys: PressedKeys): GameState {
-  const target: Target = { id: 0, key: 'up', timestamp: 1000, hit: false }
+  const target: Target = { id: 0, key: "up", timestamp: 1000, hit: false };
   if (pressedKeys[target.key]) {
     target.hit = true;
   }

@@ -6,7 +6,7 @@ import {
 } from "https://deno.land/std/testing/asserts.ts";
 import { computeGameState, PressedKeys } from "./beatfinger.ts";
 
-const makePressedKeys = () : PressedKeys  => ({
+const makePressedKeys = (): PressedKeys => ({
   down: false,
   up: false,
   left: false,
