@@ -6,6 +6,13 @@ import {
 } from "https://deno.land/std/testing/asserts.ts";
 import { computeGameState, PressedKeys } from "./beatfinger.ts";
 
+const makePressedKeys = () : PressedKeys  => ({
+  down: false,
+  up: false,
+  left: false,
+  right: false,
+});
+
 Deno.test({
   name: "computeGameState exists",
   fn(): void {
@@ -16,13 +23,7 @@ Deno.test({
 Deno.test({
   name: "computeGameState returns a target at the beginning of a game",
   fn(): void {
-    const pressedKeys: PressedKeys = {
-      down: false,
-      up: false,
-      left: false,
-      right: false,
-    };
-    const state = computeGameState(pressedKeys);
+    const state = computeGameState(makePressedKeys());
     assertArrayContains(state.targets, [
       { id: 0, key: "up", timestamp: 1000, hit: false },
     ]);
@@ -32,17 +33,11 @@ Deno.test({
 Deno.test({
   name: "computeGameState can mark the target as hit",
   fn(): void {
-    const pressedKeys: PressedKeys = {
-      down: false,
-      up: false,
-      left: false,
-      right: false,
-    };
+    const pressedKeys = makePressedKeys();
     const { id, key, timestamp } = computeGameState(pressedKeys).targets[0];
-    pressedKeys[key] = true;
-    const state = computeGameState(pressedKeys);
+    const state = computeGameState({ ...pressedKeys, [key]: true });
     assertArrayContains(state.targets, [
-      { id: 0, key: "up", timestamp: 1000, hit: true },
+      { id, key, timestamp, hit: true },
     ]);
   },
 });
