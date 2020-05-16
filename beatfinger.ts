@@ -10,8 +10,7 @@ interface GameState {
   incrY: number;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function computeGameState(pressedKeys: PressedKeys): GameState {
+export function computeGameState(pressedKeys: PressedKeys): GameState {
   const gameState: GameState = {
     incrX: 0,
     incrY: 0,

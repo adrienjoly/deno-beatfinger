@@ -1,6 +1,11 @@
-import test from "ava";
-const computeGameState = require("./index");
+// $ deno test
 
-test("computeGameState exists", (t) => {
-  t.is(computeGameState, "function");
+import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+import { computeGameState } from "./beatfinger.ts";
+
+Deno.test({
+  name: "computeGameState exists",
+  fn(): void {
+    assertEquals(typeof computeGameState, "function");
+  },
 });
