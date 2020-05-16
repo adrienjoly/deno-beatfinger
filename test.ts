@@ -1,6 +1,6 @@
-import test from 'ava'
-const computeGameState = require('./index')
+import test from "ava";
+const computeGameState = require("./index");
 
-test('computeGameState exists', (t) => {
-  t.is(computeGameState, 'function')
-})
+test("computeGameState exists", (t) => {
+  t.is(computeGameState, "function");
+});
