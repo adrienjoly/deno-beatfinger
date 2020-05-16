@@ -41,6 +41,7 @@
       const up = this.physics.add.sprite(200, -200, 'up');
       up.setDisplaySize(40, 40);
       up.setTint('0xffffff'); // white
+      up.alpha = 1;
       this.targets = [ up ];
 
       const style = { font: '20px Arial', fill: '#fff' };
@@ -64,10 +65,22 @@
       this.logo.x += incrX
       this.logo.y += incrY
       
-      const yPosition = (time - targets[0].timestamp) / TARGET_TIME_ON_SCREEN;
-      this.targets[0].y = height * yPosition;
-      if (yPosition > INCOMING_ZONE) {
-        this.targets[0].setTint('0xff0000'); // red
+      const target = targets[0];
+      const targetSprite = this.targets[0];
+      const yPosition = (time - target.timestamp) / TARGET_TIME_ON_SCREEN;
+      targetSprite.y = height * yPosition;
+      if (yPosition < 0 || yPosition > 1) {
+        // out of game view => don't show
+        targetSprite.alpha = 0
+      } else if (yPosition <= INCOMING_ZONE) {
+        targetSprite.setTint('0xffffff'); // white
+        targetSprite.alpha = 1 - ((INCOMING_ZONE - yPosition) / INCOMING_ZONE);
+      } else if (target.hit) {
+        targetSprite.setTint('0xffff00'); // yellow
+        // targetSprite.alpha = ((1 - INCOMING_ZONE - yPosition) / INCOMING_ZONE);
+      } else {
+        targetSprite.setTint('0xff0000'); // red
+        targetSprite.alpha = 0.8;
       }
 
     }
