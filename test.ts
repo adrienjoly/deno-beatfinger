@@ -56,4 +56,6 @@ Deno.test({
   },
 });
 
+// TODO: computeGameState will mark the target as missed if the key was pressed too late
+
 // TODO: computeGameState returns another target, later in the game
