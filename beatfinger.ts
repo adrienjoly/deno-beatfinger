@@ -19,7 +19,7 @@ export function computeGameState(pressedKeys: PressedKeys): GameState {
   const gameState: GameState = {
     incrX: 0,
     incrY: 0,
-    targets: [],
+    targets: [{ id: 0 }],
   };
   if (pressedKeys.right) {
     gameState.incrX += 3;
