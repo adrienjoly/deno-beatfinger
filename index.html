@@ -26,17 +26,35 @@
     }
 
     function create() {
+      // documentation of `this`: https://photonstorm.github.io/phaser3-docs/Phaser.Scene.html
       this.add.image(400, 300, 'sky');
 
       const particles = this.add.particles('red');
+      /*
       const emitter = particles.createEmitter({
         speed: 100,
         scale: { start: 1, end: 0 },
         blendMode: 'ADD'
       });
-      
+      */
       this.logo = this.physics.add.image(400, 100, 'logo');
-      emitter.startFollow(this.logo);
+      // emitter.startFollow(this.logo);
+
+      //this.emitter = game.add.emitter(0, 0, 100);
+      this.emitter = particles.createEmitter({
+        active: false,
+        //gravityY: 200,
+        maxParticles: 100,
+        //speed: 100,
+        //blendMode: 'ADD'
+        speed: { min: -800, max: 800 },
+        angle: { min: 0, max: 360 },
+        scale: { start: 0.5, end: 0 },
+        blendMode: 'SCREEN',
+        //active: false,
+        lifespan: 600,
+        gravityY: 800
+      });
 
       const up = this.physics.add.sprite(200, -200, 'up');
       up.setDisplaySize(40, 40);
@@ -78,6 +96,10 @@
       } else if (target.hit) {
         targetSprite.setTint('0xffff00'); // yellow
         // targetSprite.alpha = ((1 - INCOMING_ZONE - yPosition) / INCOMING_ZONE);
+        this.emitter.setPosition(targetSprite.x, targetSprite.y)
+        this.emitter.explode(100);
+        console.log('explode');
+        // example: https://phaser.io/examples/v3/view/game-objects/particle-emitter/explode-test
       } else {
         targetSprite.setTint('0xff0000'); // red
         targetSprite.alpha = 0.8;
