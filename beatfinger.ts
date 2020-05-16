@@ -23,10 +23,14 @@ interface GameState {
 }
 
 export function computeGameState(pressedKeys: PressedKeys): GameState {
+  const target: Target = { id: 0, key: 'up', timestamp: 1000, hit: false }
+  if (pressedKeys[target.key]) {
+    target.hit = true;
+  }
   const gameState: GameState = {
     incrX: 0,
     incrY: 0,
-    targets: [{ id: 0, key: 'up', timestamp: 1000, hit: false }],
+    targets: [target],
   };
   if (pressedKeys.right) {
     gameState.incrX += 3;
