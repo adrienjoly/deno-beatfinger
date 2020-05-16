@@ -1,19 +1,25 @@
-interface PressedKeys {
+export interface PressedKeys {
   up: boolean;
   down: boolean;
   left: boolean;
   right: boolean;
 }
 
+interface Target {
+  id: number;
+}
+
 interface GameState {
   incrX: number;
   incrY: number;
+  targets: Target[];
 }
 
 export function computeGameState(pressedKeys: PressedKeys): GameState {
   const gameState: GameState = {
     incrX: 0,
     incrY: 0,
+    targets: [],
   };
   if (pressedKeys.right) {
     gameState.incrX += 3;
