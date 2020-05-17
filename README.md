@@ -9,6 +9,17 @@ Motivations:
 - Try to keep the main game logic engine-agnostic and stateless
 - Give a test-drive to Deno, with a minimal amount of dependencies and tooling
 
+## Progress Status
+
+So far, I've got a HTML file with:
+- a logo that moves when pressing directional keys;
+- an arrow that falls and can either turn to yellow or red, if the player has pressed the corresponding key at the right time.
+
+Next steps:
+- fix the "explode" particles effect on key press;
+- write a sequence of keys to press;
+- make sure that each target is hit whenever the player pressed the corresponding key at the right time.
+
 ## Usage
 
 After installing [Deno 1.0](https://deno.land/#installation):
