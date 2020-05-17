@@ -1,6 +1,6 @@
 # BeatFinger
 
-Trying to develop an engine-agnostic rhythm game in TDD, powered by Phazer3 (for now).
+Trying to develop an engine-agnostic rhythm game in TDD, powered by [Deno](https://deno.land/) and [Phazer3](https://phaser.io/phaser3) (for now).
 
 Motivations:
 
